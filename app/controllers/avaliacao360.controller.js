@@ -1,29 +1,34 @@
 const models = require('../db/models');
 
 exports.index = async ()=>{
-  const resultado = await models.tarefa.findAll();
+  const resultado = await models.avaliacao360.findAll({
+  include: ['avaliativa']
+  });
   return resultado
 }
 
 exports.show = async (id)=>{
-  const resultado = await models.tarefa.findByPk(id);
+  const resultado = await models.avaliacao360.findByPk(id);
   return resultado
 }
 
-exports.store = async (tarefa)=>{
-    const resultado = await models.tarefa.create(tarefa)
+exports.store = async (avaliacao360)=>{
+    const resultado = await models.avaliacao360.create(avaliacao360,{
+        include: ['aluno','professor']
+    
+    });
     return resultado
 }
 
-exports.update = async (tarefa,id)=>{
-  const resultado = await models.tarefa.update(tarefa,{
+exports.update = async (avaliacao360,id)=>{
+  const resultado = await models.avaliacao360.update(avaliacao360,{
     where: {id:id}
   })
   return resultado
     
 }
 exports.destroy = async (id)=>{
-  const resultado = await models.tarefa.destroy({
+  const resultado = await models.avaliacao360.destroy({
     where: {id:id}
   })
   return resultado
